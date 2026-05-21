@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Page Title</title>
+<style>
+body{
+background:linear-gradient(160deg,white,skyblue);
+margin:0;
+padding:90px;
+text-align:center;
+text-shadow:0 3px 0 white;
+}
+.container{
+width:50vw;
+padding:30px;
+justify-self:center;
+align-items:center;
+color:white;
+cursor-pointer;
+background: linear-gradient(189deg, #f0fdfa, #e0f2fe, #0369a1);
+border: 3px solid #1e1b4b;
+box-shadow:0px 0px 20px black;
+border-radius:10px;
+animation-name:eva;
+animation-iteration-count:1;
+animation-duration:3s;
+animation-delay:1s;
+animation-direction:auto;
+}
+@keyframes eva{
+from{
+transform:translate(0px) rotate(-360deg);
+opacity:0;
+}
+to{
+transform:translateY(20px) rotate(360deg);
+opacity:1;
+}
+}
+.card{
+position:relative;
+width:80px;
+height:80px;
+background-color:#C68642;
+border-radius:40px;
+border-top:30px solid black;
+cursor-pointer;
+z-index:100;
+opacity:0.5;
+justify-self:center;
+overflow:hidden;
+}
+.card1{
+position:absolute;
+width:15px;
+height:15px;
+background-color:black;
+border-radius:30px;
+margin-left:10px;
+top:20px;
+text-align:center;
+}
+.card2{
+position:absolute;
+width:15px;
+height:15px;
+background-color:black;
+border-radius:30px;
+justify-self:right;
+margin-right:10px;
+top:20px;
+text-align:center;
+}
+.card3{
+position:absolute;
+width:35px;
+height:10px;
+background-color:white;
+border-radius:5px 5px 40px 40px;
+border-top:2px solid black;
+justify-self:center;
+border-bottom:3px solid black;
+top:50px;
+text-align:center;
+}
+.card4{
+width:20px;
+height:5px;
+border-radius: 0px 50% 0px 50%;
+position:relative;
+background-color:black;
+justify-self:center;
+top:53px;
+margin-right:43px;
+}
+.card5{
+width:20px;
+height:5px;
+border-radius:60% 0px 60% 0px;
+position:relative;
+background-color:black;
+justify-self:center;
+top:48px;
+margin-left:45px;
+}
+.card6{
+padding:20px;
+background-color:#0B0C10;
+color:black;
+margin-bottom:20px;
+border-left:5px solid lime;
+border-right:5px solid gold;
+text-transform:capitalize;
+font-size:2rem;
+border-radius:50px 0px 50px 0px;
+font-weight:800;
+oveflow-wrap:break-word;
+text-shadow:0 3px 0 gold;
+}
+.btn{
+position:relative;
+padding:10px;
+background-color:white;
+margin-bottom:20px;
+border-radius:10px;
+box-shadow:0px 0px 20px black;
+}
+.form input{
+padding:10px;
+width:40vw;
+border:1px solid blue;
+}
+.form input::placeholder{
+color:black;
+font-weight:700;
+opacity:0.7;
+}
+.form input:hover{
+transition:all ease-in 0.3s;
+cursor-pointer;
+border:1px solid cyan;
+}
+.message textarea{
+padding:10px;
+width:40vw;
+border:1px solid blue;
+}
+.message textarea::placeholder{
+color:black;
+font-weight:700;
+opacity:0.7;
+}
+.message textarea:hover{
+transition:all ease-in 0.3s;
+cursor-pointer;
+border:1px solid cyan;
+}
+.btn1 button{
+padding:10px;
+font-size:17px;
+text-transform:capitalize;
+color:black;
+}
+</style>
+</head>
+<body>
+<u><i><h1> human head emoji</h1></i></u>
+<div class="card6">evariste <span>designer</span> and <br>developer</div>
+ <section class="btn">
+    <form id="form" onsubmit="validateForm(event)">
+      <div class="form">
+        <input type="text" placeholder="Enter your full name" id="name"><br><br>
+        <input type="text" placeholder="Enter your Email" id="Email"><br><br>
+        <input type="password" placeholder="Enter your password" id="password"><br><br>
+      </div>
+      <div class="message">
+        <textarea id="message" placeholder="Type your comment here..."></textarea><br><br>
+      </div>
+      <div class="btn1">
+        <button type="submit">Send Message</button>
+        <button type="reset">Reset Form</button>
+      </div>
+    </form>
+  </section>
+
+  <!-- Professional Pop-Up Container -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+      <div class="modal-icon" id="modalIcon">👀</div>
+      <div class="modal-title" id="modalTitle">Status</div>
+      <p class="modal-text" id="modalText">Message details go here.</p>
+      <button class="modal-btn" onclick="closeModal()">Continue</button>
+    </div>
+  </div>
+
+  <!-- Pure JavaScript Logic -->
+  <script>
+    // Configuration
+    const WHATSAPP_NUMBER = "250785786547"; // Automatically formats code for Rwanda (+250)
+    const CORRECT_PASSWORD = "AdminPassword123"; // Set your desired correct password criteria here
+
+    const modalOverlay = document.getElementById('modalOverlay');
+    const modalIcon = document.getElementById('modalIcon');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalText = document.getElementById('modalText');
+
+    function showPopup(type, title, message) {
+      if (type === 'success') {
+        modalIcon.textContent = "✅";
+        modalIcon.style.color = "#10b981";
+      } else {
+        modalIcon.textContent = "❌";
+        modalIcon.style.color = "#ef4444";
+      }
+      modalTitle.textContent = title;
+      modalText.textContent = message;
+      modalOverlay.classList.add('active');
+    }
+
+    function closeModal() {
+      modalOverlay.classList.remove('active');
+    }
+
+    function validateForm(event) {
+      event.preventDefault(); // Prevents page reload
+
+      // Fetch Form Elements
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('Email').value.trim();
+      const password = document.getElementById('password').value.trim();
+      const message = document.getElementById('message').value.trim();
+
+      // 1. Check for blank fields
+      if (!name || !email || !password || !message) {
+        showPopup('error', 'Missing Information', 'Please fill out all fields before submitting.');
+        return;
+      }
+
+      // 2. Simple Email Pattern Check
+      if (!email.includes('@') || !email.includes('.')) {
+        showPopup('error', 'Invalid Email', 'Please enter a valid email address.');
+        return;
+      }
+
+      // 3. Password Check
+      if (password !== CORRECT_PASSWORD) {
+        showPopup('error', 'Incorrect Password', 'The password you entered is incorrect. Please try again.');
+        return;
+      }
+
+      // 4. Success Case & Redirection
+      showPopup('success', 'Verification Passed', 'Details verified! Redirecting you to WhatsApp...');
+
+      // Format clean message text for WhatsApp
+      const whatsappText = `*New Form Submission*%0A%0A` +
+                           `• *Name:* ${encodeURIComponent(name)}%0A` +
+                           `• *Email:* ${encodeURIComponent(email)}%0A` +
+                           `• *Comment:* ${encodeURIComponent(message)}`;
+
+      // Execute Redirection after a tiny delay so they see the success pop-up
+      setTimeout(() => {
+        window.open(`https://wa.me{WHATSAPP_NUMBER}?text=${whatsappText}`, '_blank');
+      }, 1500);
+    }
+  </script>
+<div class="container">
+<div class="card4"></div>
+<div class="card5"></div>
+<div class="card"><div>
+<div class="card1"></div>
+<div class="card2"></div>
+<div class="card3"></div>
+</div>
+</body>
+</html>
